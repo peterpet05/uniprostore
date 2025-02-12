@@ -1,0 +1,472 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Unipro_Store.Site1" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unipro Admin</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/fontawesome-free/css/all.min.css") %>" rel="stylesheet" />
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") %>" rel="stylesheet" />
+    <!-- iCheck -->
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css") %>" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="<%= ResolveUrl("~/Admin LTE/dist/css/adminlte.min.css") %>" rel="stylesheet" />
+    <!-- OverlayScrollbars -->
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css") %>" rel="stylesheet" />
+    <!-- Daterange picker -->
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/daterangepicker/daterangepicker.css") %>" rel="stylesheet" />
+    <!-- summernote -->
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/summernote/summernote-bs4.min.css") %>" rel="stylesheet" />
+    <!-- DataTables -->
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Admin LTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css") %>" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="<%= ResolveUrl("~/Content/custom-style.css") %>" rel="stylesheet" />
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <form id="form1" runat="server">
+        <div class="wrapper">
+            <!-- Navigation Bar Bagian Atas -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: whitesmoke; box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);">
+                <!-- Kiri Atas Button Hamburger -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    </li>
+                </ul>
+                <!-- Kanan Atas -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Button Dropdown Notifikasi  -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-warning navbar-badge"><%= NotificationsCount %></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <span class="dropdown-item dropdown-header"><%= NotificationsCount %> Notifikasi Baru</span>
+                            <asp:Repeater ID="rptNotifications" runat="server">
+                                <ItemTemplate>
+                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-item">
+                                        <i class="<%# Convert.ToInt32(Eval("stock")) == 0 ? "fas fa-exclamation-triangle text-danger mr-2" : "fas fa-exclamation-circle text-warning mr-2" %>"></i>
+                                        Stok "<%# Eval("productName") %>"
+                                         <%# Convert.ToInt32(Eval("stock")) == 0 ? "telah habis" : "tersisa " + Eval("stock") + " pcs" %>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <div class="dropdown-divider"></div>
+                            <a href='<%= ResolveUrl("~/Product/Product.aspx") %>' class="dropdown-item dropdown-footer">Lihat Stok Produk <i style="margin-left:6px" class="fas fa-long-arrow-alt-right"></i></a>
+                        </div>
+                    </li>
+                    <!-- Button Full Screen  -->
+                    <li class="nav-item" style="margin-left: 10px; margin-right: 7px">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </a>
+                    </li>
+                    <!-- Detail Nama User dan Button Logout  -->
+                    <div class="user-panel d-flex" style="align-items: center">
+                        <div class="image" style="padding-left: 0px; margin-left: 10px">
+                            <img src="<%= ResolveUrl("~/Admin LTE/dist/img/UserVector.png") %>" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div style="margin: 3px 20px 0px 10px; line-height: 1;">
+                            <p style="margin-bottom: 0px;"><%= Session["FullName"].ToString() %></p>
+                            <asp:LinkButton ID="btnLogout" runat="server" OnClientClick="$('#logoutModal').modal('show'); return false;" Style="font-size: 11px; color: #ff4c4c;">Logout
+                                <i class="fas fa-sign-out-alt" style="margin-left: 3px; vertical-align: middle;"></i>
+                            </asp:LinkButton>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <!-- Penutup Navigation Bar Bagian Atas -->
+
+            <!-- Side Bar Bagian Kanan -->
+            <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #030e2e">
+                <div class="sidebar">
+                    <!-- Side Bar Logo Unipro Store -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image" style="margin-top: 14px; margin-bottom: 14px">
+                            <img id="unipro-logo" src="<%= ResolveUrl("~/Admin LTE/dist/img/UniproClear.png") %>" alt="Store Logo" style="width: 70px; height: 55px; object-fit: cover">
+                            <img id="name-logo" src="<%= ResolveUrl("~/Admin LTE/dist/img/NameClear.png") %>" alt="Store Name" style="width: 120px; height: 55px; object-fit: cover; margin-left: 10px">
+                        </div>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="form-inline">
+                        <div class="input-group" data-widget="sidebar-search">
+                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" style="background-color: white; color: #000; border: 1px solid #ccc;">
+                            <div class="input-group-append">
+                                <button class="btn btn-sidebar" style="background-color: white; border: 1px solid #ccc;">
+                                    <i class="fas fa-search fa-fw" style="color: #808080"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daftar Menu Side Bar -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item">
+                                <a href="~/Dashboard.aspx" id="dashboardNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-header">DATA OPERASIONAL</li>
+                            <li class="nav-item">
+                                <a href="~/Users/Users.aspx" id="usersNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        User
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Supplier/Supplier.aspx" id="supplierNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-truck"></i>
+                                    <p>
+                                        Supplier
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Product/Product.aspx" id="produkNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-boxes"></i>
+                                    <p>
+                                        Produk
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="spesifikasiNavItem" runat="server">
+                                <a href="#" id="spesifikasiNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-list-alt"></i>
+                                    <p>
+                                        Spesifikasi Produk
+                                    <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="~/Product Specifications/Category/Category.aspx" id="kategoriNavLink" runat="server" class="nav-link">
+                                            <i class="fas fa-tag nav-icon"></i>
+                                            <p>Kategori</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Product Specifications/Subcategory/Subcategory.aspx" id="subkategoriNavLink" runat="server" class="nav-link">
+                                            <i class="fas fa-tags nav-icon"></i>
+                                            <p>Subkategori</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Product Specifications/Product Brand/ProductBrand.aspx" id="merekprodukNavLink" runat="server" class="nav-link">
+                                            <i class="fas fa-globe nav-icon"></i>
+                                            <p>Merek</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Product Specifications/Product Model/ProductModel.aspx" id="modelprodukNavLink" runat="server" class="nav-link">
+                                            <i class="fas fa-window-restore nav-icon"></i>
+                                            <p>Model</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Product Specifications/Phone Brand/PhoneBrand.aspx" id="merekponselNavLink" runat="server" class="nav-link">
+                                            <i class="fas fa-trademark nav-icon"></i>
+                                            <p>Brand Ponsel</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Product Specifications/Phone Type/PhoneType.aspx" id="tipeponselNavLink" runat="server" class="nav-link">
+                                            <i class="fas fa-mobile nav-icon"></i>
+                                            <p>Tipe Ponsel</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="~/Product Specifications/Product Color/ProductColor.aspx" id="warnaprodukNavLink" runat="server" class="nav-link">
+                                            <i class="fas fa-palette nav-icon"></i>
+                                            <p>Warna</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-header">TRANSAKSI</li>
+                            <li class="nav-item">
+                                <a href="~/Sales Transaction/sales.aspx" id="penjualanNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-download"></i>
+                                    <p>
+                                        Penjualan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Purchase Transaction/purchase.aspx" id="pembelianNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-upload"></i>
+                                    <p>
+                                        Pembelian
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-header" runat="server" id="laporanheader">LAPORAN</li>
+                            <li class="nav-item">
+                                <a href="~/Report/salesreport.aspx" id="laporanpenjualanNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-file-download"></i>
+                                    <p>
+                                        Laporan Penjualan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Report/purchasereport.aspx" id="laporanpembelianNavLink" runat="server" class="nav-link">
+                                    <i class="nav-icon fas fa-file-upload"></i>
+                                    <p>
+                                        Laporan Pembelian
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- Penutup Daftar Menu Side Bar -->
+                </div>
+            </aside>
+
+            <!-- Halaman Konten -->
+            <div class="content-wrapper" style="padding: 8px 20px 0px 13px">
+                <!-- Header Halaman Konten -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0" style="font-size: 34px; font-weight: 600">
+                                    <asp:Literal ID="PageHeader" runat="server" />
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Penutup Header Halaman Konten -->
+
+                <!-- Konten Utama -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </section>
+                <!-- Penutup Konten Utama -->
+            </div>
+            <!-- Penutup Halaman Konten -->
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                Copyright &copy;  <%: DateTime.Now.Year %> <b>Unipro Store</b>. All rights reserved.
+                <div class="float-right d-none d-sm-inline-block">
+                    <b>Version</b> 1.0
+                </div>
+            </footer>
+            <!-- Penutup Footer -->
+
+            <aside class="control-sidebar control-sidebar-dark">
+            </aside>
+
+            <!-- Modal Konfirmasi Logout -->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="border-radius: 20px; padding: 20px;">
+                        <div class="modal-header" style="border-bottom: none; padding-bottom: 5px; padding-top: 10px;">
+                            <h5 class="modal-title" id="logoutModalLabel" style="font-weight: bold; font-size: 32px">Konfirmasi Logout</h5>
+                        </div>
+                        <div class="modal-body" style="padding-top: 0px;">
+                            <p style="font-size: 17px; margin-bottom: 10px">Anda yakin ingin melakukan logout dari website?</p>
+                        </div>
+                        <div class="modal-footer" style="border-top: none; justify-content: space-between; padding-top: 0px; padding-bottom: 5px">
+                            <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" style="width: 45%; border-radius: 10px; font-weight: bold;">Batal</button>
+                            <asp:LinkButton ID="btnConfirmLogout" runat="server" CssClass="btn btn-danger btn-lg" OnClick="btnLogout_Click" Style="width: 45%; border-radius: 10px; font-weight: bold;">Logout</asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Penutup Modal Konfirmasi Logout -->
+
+        </div>
+        <!-- Penutup Div Keseluruhan (Wrapper) -->
+
+
+        <!-- jQuery -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/jquery/jquery.min.js") %>"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/jquery-ui/jquery-ui.min.js") %>"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/bootstrap/js/bootstrap.bundle.min.js") %>"></script>
+        <!-- ChartJS -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/chart.js/Chart.min.js") %>"></script>
+        <!-- Sparkline -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/sparklines/sparkline.js") %>"></script>
+        <!-- JQVMap -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/jqvmap/jquery.vmap.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/jqvmap/maps/jquery.vmap.usa.js") %>"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/jquery-knob/jquery.knob.min.js") %>"></script>
+        <!-- daterangepicker -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/moment/moment.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/daterangepicker/daterangepicker.js") %>"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js") %>"></script>
+        <!-- Summernote -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/summernote/summernote-bs4.min.js") %>"></script>
+        <!-- OverlayScrollbars -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js") %>"></script>
+        <!-- AdminLTE App -->
+        <script src="<%= ResolveUrl("~/Admin LTE/dist/js/adminlte.js") %>"></script>
+        <!-- AdminLTE dashboard demo -->
+        <script src="<%= ResolveUrl("~/Admin LTE/dist/js/pages/dashboard.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/dist/js/pages/dashboard2.js") %>"></script>
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- DataTables  & Plugins -->
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables/jquery.dataTables.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-responsive/js/dataTables.responsive.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-buttons/js/dataTables.buttons.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/jszip/jszip.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/pdfmake/pdfmake.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/pdfmake/vfs_fonts.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-buttons/js/buttons.html5.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-buttons/js/buttons.print.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Admin LTE/plugins/datatables-buttons/js/buttons.colVis.min.js") %>"></script>
+        <!-- Mengatur Navbar Bagian Kanan saat Button Hamburger di Klik -->
+        <script>
+            $(document).ready(function () {
+                var isMinimized = false;
+
+                $(document).on('collapsed.lte.pushmenu', function () {
+                    isMinimized = true;
+                    $('#unipro-logo').css({
+                        'width': '',
+                        'height': '',
+                        'object-fit': ''
+                    });
+                    $('#name-logo').css({
+                        'width': '',
+                        'height': '',
+                        'object-fit': '',
+                        'margin-left': '10px'
+                    });
+                });
+
+                $(document).on('shown.lte.pushmenu', function () {
+                    isMinimized = false;
+                    $('#unipro-logo').css({
+                        'width': '70px',
+                        'height': '55px',
+                        'object-fit': 'cover'
+                    });
+                    $('#name-logo').css({
+                        'width': '120px',
+                        'height': '55px',
+                        'object-fit': 'cover',
+                        'margin-left': '10px'
+                    });
+                });
+
+                $('.main-sidebar').hover(
+                    function () {
+                        if (isMinimized) {
+                            $('#unipro-logo').css({
+                                'width': '70px',
+                                'height': '55px',
+                                'object-fit': 'cover'
+                            });
+                            $('#name-logo').css({
+                                'width': '120px',
+                                'height': '55px',
+                                'object-fit': 'cover',
+                                'margin-left': '10px'
+                            });
+                        }
+                    },
+                    function () {
+                        if (isMinimized) {
+                            $('#unipro-logo').css({
+                                'width': '',
+                                'height': '',
+                                'object-fit': ''
+                            });
+                            $('#name-logo').css({
+                                'width': '',
+                                'height': '',
+                                'object-fit': '',
+                                'margin-left': '10px'
+                            });
+                        }
+                    }
+                );
+            });
+        </script>
+        <!-- Success Toast -->
+        <script>
+            function launchSuccessToast(message) {
+                Swal.fire({
+                    toast: true,
+                    icon: 'success',
+                    title: message,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+            }
+        </script>
+        <!-- Warning Toast -->
+        <script>
+            function launchWarningToast(message) {
+                Swal.fire({
+                    toast: true,
+                    icon: 'warning',
+                    title: message,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    timer: false,
+                    timerProgressBar: false,
+                });
+            }
+        </script>
+        <!-- Error Toast -->
+        <script>
+            function launchErrorToast(message) {
+                Swal.fire({
+                    toast: true,
+                    icon: 'error',
+                    title: message,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    showCloseButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                });
+            }
+        </script>
+    </form>
+</body>
+</html>

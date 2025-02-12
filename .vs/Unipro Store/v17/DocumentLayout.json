@@ -1,0 +1,89 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\peter\\Downloads\\Unipro Store\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|c:\\users\\peter\\downloads\\unipro store\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|c:\\users\\peter\\downloads\\unipro store\\site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "RelativeMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|solutionrelative:site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|C:\\Users\\peter\\Downloads\\Unipro Store\\content\\custom-style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|solutionrelative:content\\custom-style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|C:\\Users\\peter\\Downloads\\Unipro Store\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9EC3372-1701-420E-A395-5ADE58A4CB20}|Unipro Store.csproj|solutionrelative:site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Site.Master",
+              "DocumentMoniker": "C:\\Users\\peter\\Downloads\\Unipro Store\\Site.Master",
+              "RelativeDocumentMoniker": "Site.Master",
+              "ToolTip": "C:\\Users\\peter\\Downloads\\Unipro Store\\Site.Master",
+              "RelativeToolTip": "Site.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-11-13T10:36:50.17Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Site.Master.cs",
+              "DocumentMoniker": "C:\\Users\\peter\\Downloads\\Unipro Store\\Site.Master.cs",
+              "RelativeDocumentMoniker": "Site.Master.cs",
+              "ToolTip": "C:\\Users\\peter\\Downloads\\Unipro Store\\Site.Master.cs",
+              "RelativeToolTip": "Site.Master.cs",
+              "ViewState": "AQIAAGwAAAAAAAAAAAAswLgAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T10:36:53.574Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "custom-style.css",
+              "DocumentMoniker": "C:\\Users\\peter\\Downloads\\Unipro Store\\Content\\custom-style.css",
+              "RelativeDocumentMoniker": "Content\\custom-style.css",
+              "ToolTip": "C:\\Users\\peter\\Downloads\\Unipro Store\\Content\\custom-style.css",
+              "RelativeToolTip": "Content\\custom-style.css",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-12-13T01:06:57.526Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Users\\peter\\Downloads\\Unipro Store\\Web.config",
+              "RelativeDocumentMoniker": "Web.config",
+              "ToolTip": "C:\\Users\\peter\\Downloads\\Unipro Store\\Web.config",
+              "RelativeToolTip": "Web.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-01-04T02:44:18.255Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
